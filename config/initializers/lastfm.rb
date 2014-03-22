@@ -1,0 +1,1 @@
+LASTFM = Lastfm.new(ENV["LASTFM_API_KEY"], ENV["LASTFM_SECRET"])

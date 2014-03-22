@@ -1,0 +1,54 @@
+!!! 5
+%html{ lang: "en" }
+  %head
+    %title= "Zongoraverseny" + (content_for?(:title) ? " | #{content_for(:title)}" : "")
+    %meta{ charset: "utf-8" }
+    %meta{ http: { equiv: "X-UA-Compatible" }, content: "IE=Edge,chrome=1" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    = csrf_meta_tags
+    /[if lt IE 9]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
+    = javascript_include_tag 'application'
+  %body
+    .navbar.navbar-default
+      .container
+        .navbar-header
+          %button.navbar-toggle{ data: { target: ".navbar-collapse", toggle: "collapse" }, type: "button" }
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to "Zongoraverseny", root_path, class: "navbar-brand"
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right
+            - if signed_in?
+              - unless current_user.has_lastfm?
+                %li= link_to "Connect with Last.fm", connect_lastfm_path
+              %li= link_to "Sign out", destroy_user_session_path
+            - else
+              %li= link_to "Sign in", new_user_session_path
+    .container
+      = bootstrap_flash
+      = yield
+
+    .navbar.navbar-default.navbar-fixed-bottom
+      .container
+        .header
+        %ul.nav.navbar-nav
+          %li
+            = link_to nil do
+              %i.fa.fa-backward
+          %li
+            = link_to nil do
+              %i.fa.fa-play
+              %i.fa.fa-pause
+          %li
+            = link_to nil do
+              %i.fa.fa-forward
+          %li
+            %p.navbar-text
+              = link_to nil do
+                qvb
+
+    = yield(:page_javascript) if content_for?(:page_javascript)
