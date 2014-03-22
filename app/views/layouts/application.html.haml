@@ -14,28 +14,7 @@
   %body
     .navbar.navbar-default
       .container
-        .navbar-header
-          %button.navbar-toggle{ data: { target: ".navbar-collapse", toggle: "collapse" }, type: "button" }
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to "Zongoraverseny", root_path, class: "navbar-brand"
-        .navbar-collapse.collapse
-          %ul.nav.navbar-nav.navbar-right
-            - if signed_in?
-              - unless current_user.has_lastfm?
-                %li= link_to "Connect with Last.fm", connect_lastfm_path
-              %li= link_to "Sign out", destroy_user_session_path
-            - else
-              %li= link_to "Sign in", new_user_session_path
-    .container
-      = bootstrap_flash
-      = yield
-
-    .navbar.navbar-default.navbar-fixed-bottom
-      .container
-        .header
-        %ul.nav.navbar-nav
+        %ul.nav.navbar-nav.navbar-left
           %li
             = link_to nil do
               %i.fa.fa-backward
@@ -47,8 +26,17 @@
             = link_to nil do
               %i.fa.fa-forward
           %li
-            %p.navbar-text
-              = link_to nil do
-                qvb
+            = link_to nil do
+              qvb
+        %ul.nav.navbar-nav.navbar-right
+          - if signed_in?
+            - unless current_user.has_lastfm?
+              %li= link_to "Connect with Last.fm", connect_lastfm_path
+            %li= link_to "Sign out", destroy_user_session_path
+          - else
+            %li= link_to "Sign in", new_user_session_path
+    .container
+      = bootstrap_flash
+      = yield
 
     = yield(:page_javascript) if content_for?(:page_javascript)
