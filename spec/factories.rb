@@ -1,4 +1,8 @@
 FactoryGirl.define do
+  factory :folder do
+    sequence(:name) { |n| "folder_#{n}" }
+  end
+
   factory :user do
     sequence(:email) { |n| "qvbn#{n}@maldoror.tk" }
     password "password"
